@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عداد الأذكار</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+    <aside class="sidebar">
+        <h1>عداد الأذكار</h1>
+        <button id="addDhikrBtn" class="btn primary-btn">إضافة ذكر جديد</button>
+        <select id="predefinedDhikr" class="select">
+            <option value="">اختر ذكراً</option>
+            <option value="الصلاة على النبي">الصلاة على النبي</option>
+            <option value="سبحان الله وبحمده">سبحان الله وبحمده</option>
+        </select>
+        <button id="sharePredefinedLink" class="btn secondary-btn">مشاركة الرابط</button>
+        <button id="exportBtn" class="btn secondary-btn">تصدير الأذكار</button>
+        <button id="importBtn" class="btn secondary-btn">استيراد الأذكار</button>
+        <input type="file" id="importFile" style="display: none;" accept=".json">
+        <button id="resetAllBtn" class="btn warning-btn">إعادة تعيين الكل</button>
+        <button id="themeToggle" class="btn theme-btn">🌓 تبديل النمط</button>
+    </aside>
+
+    <main class="main-content">
+        <div id="dhikrCards" class="dhikr-cards"></div>
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle"></h2>
+            <form id="dhikrForm">
+                <input type="text" id="dhikrText" placeholder="نص الذكر" required>
+                <input type="number" id="dhikrCount" placeholder="عدد المرات" min="1" required>
+                <textarea id="dhikrHadith" placeholder="الحديث (اختياري)"></textarea>
+                <textarea id="dhikrVirtues" placeholder="الفضائل (اختياري)"></textarea>
+                <input type="url" id="dhikrLink" placeholder="رابط (اختياري)">
+                <button type="submit" class="btn primary-btn">حفظ</button>
+                <button type="button" id="closeModal" class="btn secondary-btn">إغلاق</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
